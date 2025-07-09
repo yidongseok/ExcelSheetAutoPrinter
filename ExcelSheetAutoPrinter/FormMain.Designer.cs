@@ -37,6 +37,8 @@
 			this.gvExcel = new System.Windows.Forms.DataGridView();
 			this.btnScheduleStart = new System.Windows.Forms.Button();
 			this.btnScheduleStop = new System.Windows.Forms.Button();
+			this.btnPrint = new System.Windows.Forms.Button();
+			this.txtLog = new System.Windows.Forms.RichTextBox();
 			((System.ComponentModel.ISupportInitialize)(this.gvExcel)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -56,7 +58,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSrcFilePath.Location = new System.Drawing.Point(114, 39);
 			this.txtSrcFilePath.Name = "txtSrcFilePath";
-			this.txtSrcFilePath.Size = new System.Drawing.Size(942, 21);
+			this.txtSrcFilePath.Size = new System.Drawing.Size(1285, 21);
 			this.txtSrcFilePath.TabIndex = 1;
 			// 
 			// btnFileSelect
@@ -84,7 +86,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDestFilePath.Location = new System.Drawing.Point(114, 66);
 			this.txtDestFilePath.Name = "txtDestFilePath";
-			this.txtDestFilePath.Size = new System.Drawing.Size(942, 21);
+			this.txtDestFilePath.Size = new System.Drawing.Size(1285, 21);
 			this.txtDestFilePath.TabIndex = 4;
 			// 
 			// lblDestFile
@@ -105,7 +107,7 @@
 			this.gvExcel.Location = new System.Drawing.Point(16, 122);
 			this.gvExcel.Name = "gvExcel";
 			this.gvExcel.RowTemplate.Height = 23;
-			this.gvExcel.Size = new System.Drawing.Size(1040, 356);
+			this.gvExcel.Size = new System.Drawing.Size(682, 356);
 			this.gvExcel.TabIndex = 6;
 			// 
 			// btnScheduleStart
@@ -129,11 +131,33 @@
 			this.btnScheduleStop.UseVisualStyleBackColor = true;
 			this.btnScheduleStop.Click += new System.EventHandler(this.btnScheduleStop_Click);
 			// 
+			// btnPrint
+			// 
+			this.btnPrint.Location = new System.Drawing.Point(176, 484);
+			this.btnPrint.Name = "btnPrint";
+			this.btnPrint.Size = new System.Drawing.Size(75, 23);
+			this.btnPrint.TabIndex = 9;
+			this.btnPrint.Text = "인쇄";
+			this.btnPrint.UseVisualStyleBackColor = true;
+			this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+			// 
+			// txtLog
+			// 
+			this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtLog.Location = new System.Drawing.Point(706, 122);
+			this.txtLog.Name = "txtLog";
+			this.txtLog.Size = new System.Drawing.Size(695, 356);
+			this.txtLog.TabIndex = 10;
+			this.txtLog.Text = "";
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1070, 762);
+			this.ClientSize = new System.Drawing.Size(1413, 762);
+			this.Controls.Add(this.txtLog);
+			this.Controls.Add(this.btnPrint);
 			this.Controls.Add(this.btnScheduleStop);
 			this.Controls.Add(this.btnScheduleStart);
 			this.Controls.Add(this.gvExcel);
@@ -163,6 +187,8 @@
 		private System.Windows.Forms.DataGridView gvExcel;
 		private System.Windows.Forms.Button btnScheduleStart;
 		private System.Windows.Forms.Button btnScheduleStop;
+		private System.Windows.Forms.Button btnPrint;
+		public System.Windows.Forms.RichTextBox txtLog;
 	}
 }
 

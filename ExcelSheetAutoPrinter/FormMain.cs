@@ -1,7 +1,9 @@
-﻿using ExcelDataReader;
+﻿using BaiqiSoft.HtmlEditorControl;
 using log4net;
+using SelectPdf;
 using System;
-using System.Data;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -15,7 +17,12 @@ namespace ExcelSheetAutoPrinter
 	{
         private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+		private string pdfFileFullPath = string.Empty; // PDF 파일 전체 경로
 		private string pdfFileName = string.Empty; // PDF 파일 이름
+
+		PrintDocument printDoc;		// winform PrintDocument
+        MstHtmlEditor htmlEditor;	// HtmlEditor (NuGet 패키지 추가 : BaiqiSoft.WinFormsHtmlEditor.NET4)
+        HtmlToImage hToi;			// Html을 Image로 Convert (NuGet 패키지 추가 : Select.HtmlToPdf)
 
 		public frmMain()
 		{
@@ -27,7 +34,41 @@ namespace ExcelSheetAutoPrinter
 		private void InitForm()
 		{
 			//CheckForIllegalCrossThreadCalls = false;
+
+			printDoc = new PrintDocument();
+            printDoc.PrintPage += PrintDoc_PrintPage;
+ 
+            // Html Editor을 Panel에 Panel에 Add (화면에 뿌려 줌)
+            htmlEditor = new MstHtmlEditor();
+            htmlEditor.Dock = DockStyle.Fill; // 화면 사이즈에 맞춰서 크기가 변경 될 수 있게 부모 컨테이너에 Docking 시킴
+            //this.Controls.Add(htmlEditor);
+ 
+            hToi = new HtmlToImage();
 		}
+
+		/// <summary>
+        /// Print Page Set Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Image img = hToi.ConvertHtmlString(htmlEditor.BodyHTML);  // Html을 Image로 변환
+ 
+            Graphics g = e.Graphics;
+            g.DrawImage(img, 10, 10);   // x, y 시작점
+ 
+            /*
+            // Draw String에 대한 구문
+            PointF drawPoint = new PointF(100, 100);            
+            // 2중 using 문 사용.
+            using (Font font = new Font("Lucida Console", 30))
+            using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+            {
+                g.DrawString("Hello,\n printer", font, drawBrush, drawPoint);
+            }
+            */
+        }
 
 		private void btnLoadExcel_Click(object sender, EventArgs e)
 		{
@@ -77,6 +118,8 @@ namespace ExcelSheetAutoPrinter
 
 				workBook.Close(true);   // 워크북 닫기
                 excelApp.Quit();        // 엑셀 어플리케이션 종료
+
+				logger.Info("Excel file loaded and PDF created successfully.");
 			}
 			catch (Exception ex)
 			{
@@ -128,10 +171,13 @@ namespace ExcelSheetAutoPrinter
 				{
 					txtSrcFilePath.Text = ofd.FileName;									// 텍스트 박스에 파일 경로 표시
 
-					pdfFileName = Path.GetFileNameWithoutExtension(ofd.FileName) + ".pdf"; // PDF 파일 이름 설정
+					pdfFileName = Path.GetFileNameWithoutExtension(ofd.FileName) + ".pdf";				// PDF 파일 이름 설정
+					pdfFileFullPath = Path.Combine(Path.GetDirectoryName(ofd.FileName), pdfFileName);	// PDF 파일 전체 경로 설정
 
 					txtDestFilePath.Text = Path.Combine(Path.GetDirectoryName(ofd.FileName), pdfFileName); // PDF 파일 경로 설정
 				}
+
+				logger.Info("Selected file: " + txtSrcFilePath.Text); // 선택한 파일 경로 로그 출력
 			}
 			catch (Exception ex)
 			{
@@ -204,6 +250,29 @@ namespace ExcelSheetAutoPrinter
 			else
 			{
 			this.btnScheduleStop.Enabled = false;   // 스케줄 중지 버튼 비활성화
+			}
+		}
+
+		private void btnPrint_Click(object sender, EventArgs e)
+		{
+			// https://cwkcw.tistory.com/645
+			try
+			{
+				logger.Info("Print Start");
+
+				PrintDialog printDlg = new PrintDialog();
+ 
+            		if (printDlg.ShowDialog() == DialogResult.OK)
+            		{
+                		printDoc.PrinterSettings = printDlg.PrinterSettings;
+                		printDoc.Print();
+            		}
+
+				logger.Info("Print End");
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex);
 			}
 		}
 	}

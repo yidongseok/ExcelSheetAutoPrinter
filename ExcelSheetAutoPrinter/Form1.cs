@@ -25,7 +25,6 @@ namespace ExcelSheetAutoPrinter
 
 		private void InitForm()
 		{
-			//txtFileName.Text = @"D:\ExcelSheetAutoPrinter\ExcelSheetAutoPrinter\디아블로4_영원_원소술사(제압번개창-푸들멈머)_yidongseok@gmail.com.xlsx";
 		}
 
 		private void btnLoadExcel_Click(object sender, EventArgs e)
@@ -42,40 +41,37 @@ namespace ExcelSheetAutoPrinter
 
             try
 			{
-				excelApp = new Excel.Application();											// 엑셀 어플리케이션 생성
-                workBook = excelApp.Workbooks.Open(path);									// 워크북 열기
-                workSheet = workBook.Worksheets.get_Item(4) as Excel.Worksheet;				// 엑셀 첫번째 워크시트 가져오기
+				excelApp = new Excel.Application();														// 엑셀 어플리케이션 생성
+                workBook = excelApp.Workbooks.Open(path);												// 워크북 열기
+                workSheet = workBook.Worksheets.get_Item(1) as Excel.Worksheet;							// 엑셀 첫번째 워크시트 가져오기
 
-				Excel.Range range = workSheet.UsedRange;									// 사용중인 셀 범위를 가져오기
+				Excel.Range range = workSheet.UsedRange;												// 사용중인 셀 범위를 가져오기
 
-				for (int columnNo = 1; columnNo <= range.Columns.Count; columnNo++)         // 가져온 열 만큼 반복
+				for (int columnNo = 1; columnNo <= range.Columns.Count; columnNo++)						// 가져온 열 만큼 반복
 				{
-					string strColumnName = (string)(range.Cells[1, columnNo] as Excel.Range).Value2; // 첫번째 행의 셀 값 가져오기
+					string strColumnName = (string)(range.Cells[1, columnNo] as Excel.Range).Value2;	// 첫번째 행의 셀 값 가져오기
 
-					gvExcel.Columns.Add(strColumnName, strColumnName);										// 데이터 그리드뷰에 열 추가
+					gvExcel.Columns.Add(strColumnName, strColumnName);									// 데이터 그리드뷰에 열 추가
 				}
 
-				for (int rowNo = 1; rowNo <= range.Rows.Count; rowNo++)						// 가져온 행 만큼 반복
+				for (int rowNo = 2; rowNo <= range.Rows.Count; rowNo++)									// 가져온 행 만큼 반복
                 {
-					DataGridViewRow row = new DataGridViewRow();							// 데이터 그리드뷰 행 생성
-					for (int columnNo = 1; columnNo <= range.Columns.Count; columnNo++)		// 가져온 열 만큼 반복
+					DataGridViewRow row = new DataGridViewRow();										// 데이터 그리드뷰 행 생성
+					for (int columnNo = 1; columnNo <= range.Columns.Count; columnNo++)					// 가져온 열 만큼 반복
                     {
-                        string str = (string)(range.Cells[rowNo, columnNo] as Excel.Range).Value2;  // 셀 데이터 가져옴
+                        string str = (string)(range.Cells[rowNo, columnNo] as Excel.Range).Value2;		// 셀 데이터 가져옴
 
-                        //logger.Debug(str + " ");
-
-						Excel.Range cell = range.Cells[rowNo, columnNo] as Excel.Range;				// 셀 객체 가져오기
-						DataGridViewTextBoxCell cellControl = new DataGridViewTextBoxCell();		// 데이터 그리드뷰 텍스트 박스 셀 생성
-						cellControl.Value = (cell.Value == null) ? "" : cell.Value.ToString();		// 셀 값 설정
-						row.Cells.Add(cellControl);													// 행에 셀 추가
+						Excel.Range cell = range.Cells[rowNo, columnNo] as Excel.Range;					// 셀 객체 가져오기
+						DataGridViewTextBoxCell cellControl = new DataGridViewTextBoxCell();			// 데이터 그리드뷰 텍스트 박스 셀 생성
+						cellControl.Value = (cell.Value == null) ? "" : cell.Value.ToString();			// 셀 값 설정
+						row.Cells.Add(cellControl);														// 행에 셀 추가
 					}
 
 					gvExcel.Rows.Add(row); // 데이터 그리드뷰에 행 추가
-
-					logger.Debug("");
                 }
 
-                workSheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, Path.Combine(Path.GetDirectoryName(path), pdfFileName)); // 워크시트 PDF로 저장
+				workSheet.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;					// 페이지 방향을 가로로 설정
+				workSheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, Path.Combine(Path.GetDirectoryName(path), pdfFileName)); // 워크시트 PDF로 저장
 
 				workBook.Close(true);   // 워크북 닫기
                 excelApp.Quit();        // 엑셀 어플리케이션 종료

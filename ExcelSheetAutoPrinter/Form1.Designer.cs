@@ -119,6 +119,7 @@
 			this.Controls.Add(this.txtSrcFilePath);
 			this.Controls.Add(this.btnLoadExcel);
 			this.Name = "frmMain";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Excel Sheet Auto Printer";
 			((System.ComponentModel.ISupportInitialize)(this.gvExcel)).EndInit();
 			this.ResumeLayout(false);

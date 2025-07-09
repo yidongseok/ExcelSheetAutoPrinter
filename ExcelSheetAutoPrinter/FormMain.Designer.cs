@@ -150,6 +150,7 @@
 			this.txtLog.Size = new System.Drawing.Size(695, 356);
 			this.txtLog.TabIndex = 10;
 			this.txtLog.Text = "";
+			this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
 			// 
 			// frmMain
 			// 

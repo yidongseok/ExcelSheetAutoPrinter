@@ -35,6 +35,8 @@
 			this.txtDestFilePath = new System.Windows.Forms.TextBox();
 			this.lblDestFile = new System.Windows.Forms.Label();
 			this.gvExcel = new System.Windows.Forms.DataGridView();
+			this.btnScheduleStart = new System.Windows.Forms.Button();
+			this.btnScheduleStop = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.gvExcel)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -106,11 +108,34 @@
 			this.gvExcel.Size = new System.Drawing.Size(1040, 356);
 			this.gvExcel.TabIndex = 6;
 			// 
+			// btnScheduleStart
+			// 
+			this.btnScheduleStart.Location = new System.Drawing.Point(14, 484);
+			this.btnScheduleStart.Name = "btnScheduleStart";
+			this.btnScheduleStart.Size = new System.Drawing.Size(75, 23);
+			this.btnScheduleStart.TabIndex = 7;
+			this.btnScheduleStart.Text = "시작";
+			this.btnScheduleStart.UseVisualStyleBackColor = true;
+			this.btnScheduleStart.Click += new System.EventHandler(this.btnScheduleStart_Click);
+			// 
+			// btnScheduleStop
+			// 
+			this.btnScheduleStop.Enabled = false;
+			this.btnScheduleStop.Location = new System.Drawing.Point(95, 484);
+			this.btnScheduleStop.Name = "btnScheduleStop";
+			this.btnScheduleStop.Size = new System.Drawing.Size(75, 23);
+			this.btnScheduleStop.TabIndex = 8;
+			this.btnScheduleStop.Text = "중지";
+			this.btnScheduleStop.UseVisualStyleBackColor = true;
+			this.btnScheduleStop.Click += new System.EventHandler(this.btnScheduleStop_Click);
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1070, 762);
+			this.Controls.Add(this.btnScheduleStop);
+			this.Controls.Add(this.btnScheduleStart);
 			this.Controls.Add(this.gvExcel);
 			this.Controls.Add(this.lblDestFile);
 			this.Controls.Add(this.txtDestFilePath);
@@ -136,6 +161,8 @@
 		private System.Windows.Forms.TextBox txtDestFilePath;
 		private System.Windows.Forms.Label lblDestFile;
 		private System.Windows.Forms.DataGridView gvExcel;
+		private System.Windows.Forms.Button btnScheduleStart;
+		private System.Windows.Forms.Button btnScheduleStop;
 	}
 }
 

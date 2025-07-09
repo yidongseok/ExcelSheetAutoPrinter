@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -25,6 +26,7 @@ namespace ExcelSheetAutoPrinter
 
 		private void InitForm()
 		{
+			//CheckForIllegalCrossThreadCalls = false;
 		}
 
 		private void btnLoadExcel_Click(object sender, EventArgs e)
@@ -134,6 +136,74 @@ namespace ExcelSheetAutoPrinter
 			catch (Exception ex)
 			{
 				logger.Error(ex);
+			}
+		}
+
+		private async void btnScheduleStart_Click(object sender, EventArgs e)
+		{
+			await Task.Run(() => ScheduleStart());	// 스케줄 시작 비동기 실행
+		}
+
+		private async void btnScheduleStop_Click(object sender, EventArgs e)
+		{
+			await Task.Run(() => ScheduleStop());	// 스케줄 중지 비동기 실행
+		}
+
+		private void ScheduleStart()
+		{
+			if (this.btnScheduleStart.InvokeRequired)	// UI 스레드가 아닌 경우 Invoke 호출
+			{
+				this.btnScheduleStart.Invoke(new Action(delegate()
+				{
+					this.btnScheduleStart.Enabled = false;	// 스케줄 시작 버튼 비활성화
+				}
+				));
+			}
+			else
+			{
+				this.btnScheduleStart.Enabled = false;  // 스케줄 시작 버튼 비활성화
+			}
+
+			if (this.btnScheduleStop.InvokeRequired)	// UI 스레드가 아닌 경우 Invoke 호출
+			{
+				this.btnScheduleStop.Invoke(new Action(delegate()
+				{
+					this.btnScheduleStop.Enabled = true;	// 스케줄 중지 버튼 활성화
+				}
+				));
+			}
+			else
+			{
+				this.btnScheduleStop.Enabled = true;   // 스케줄 중지 버튼 활성화
+			}
+		}
+
+		private void ScheduleStop()
+		{
+			if (this.btnScheduleStart.InvokeRequired)	// UI 스레드가 아닌 경우 Invoke 호출
+			{
+				this.btnScheduleStart.Invoke(new Action(delegate()
+				{
+					this.btnScheduleStart.Enabled = true;	// 스케줄 시작 버튼 활성화
+				}
+				));
+			}
+			else
+			{
+				this.btnScheduleStart.Enabled = true;  // 스케줄 시작 버튼 활성화
+			}
+
+			if (this.btnScheduleStop.InvokeRequired)	// UI 스레드가 아닌 경우 Invoke 호출
+			{
+				this.btnScheduleStop.Invoke(new Action(delegate()
+				{
+					this.btnScheduleStop.Enabled = false;   // 스케줄 중지 버튼 비활성화
+				}
+				));
+			}
+			else
+			{
+			this.btnScheduleStop.Enabled = false;   // 스케줄 중지 버튼 비활성화
 			}
 		}
 	}

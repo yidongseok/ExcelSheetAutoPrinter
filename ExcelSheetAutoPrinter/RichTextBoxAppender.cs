@@ -44,7 +44,7 @@ namespace ExcelSheetAutoPrinter
 				{
 					_textBox.SelectionStart = _textBox.TextLength;
 					_textBox.SelectionLength = 0;
-					_textBox.SelectionColor = Color.RoyalBlue;
+					_textBox.SelectionColor = Color.ForestGreen;
 					_textBox.AppendText(RenderLoggingEvent(loggingEvent));
 					_textBox.SelectionColor = _textBox.ForeColor;
 				}
@@ -52,7 +52,7 @@ namespace ExcelSheetAutoPrinter
 				{
 					_textBox.SelectionStart = _textBox.TextLength;
 					_textBox.SelectionLength = 0;
-					_textBox.SelectionColor = Color.ForestGreen;
+					_textBox.SelectionColor = Color.RoyalBlue;
 					_textBox.AppendText(RenderLoggingEvent(loggingEvent));
 					_textBox.SelectionColor = _textBox.ForeColor;
 				}

@@ -58,7 +58,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSrcFilePath.Location = new System.Drawing.Point(114, 39);
 			this.txtSrcFilePath.Name = "txtSrcFilePath";
-			this.txtSrcFilePath.Size = new System.Drawing.Size(1285, 21);
+			this.txtSrcFilePath.Size = new System.Drawing.Size(1536, 21);
 			this.txtSrcFilePath.TabIndex = 1;
 			// 
 			// btnFileSelect
@@ -86,7 +86,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDestFilePath.Location = new System.Drawing.Point(114, 66);
 			this.txtDestFilePath.Name = "txtDestFilePath";
-			this.txtDestFilePath.Size = new System.Drawing.Size(1285, 21);
+			this.txtDestFilePath.Size = new System.Drawing.Size(1536, 21);
 			this.txtDestFilePath.TabIndex = 4;
 			// 
 			// lblDestFile
@@ -100,19 +100,19 @@
 			// 
 			// gvExcel
 			// 
-			this.gvExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gvExcel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.gvExcel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.gvExcel.Location = new System.Drawing.Point(16, 122);
 			this.gvExcel.Name = "gvExcel";
 			this.gvExcel.RowTemplate.Height = 23;
-			this.gvExcel.Size = new System.Drawing.Size(682, 356);
+			this.gvExcel.Size = new System.Drawing.Size(479, 461);
 			this.gvExcel.TabIndex = 6;
 			// 
 			// btnScheduleStart
 			// 
-			this.btnScheduleStart.Location = new System.Drawing.Point(14, 484);
+			this.btnScheduleStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnScheduleStart.Location = new System.Drawing.Point(16, 589);
 			this.btnScheduleStart.Name = "btnScheduleStart";
 			this.btnScheduleStart.Size = new System.Drawing.Size(75, 23);
 			this.btnScheduleStart.TabIndex = 7;
@@ -122,8 +122,9 @@
 			// 
 			// btnScheduleStop
 			// 
+			this.btnScheduleStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnScheduleStop.Enabled = false;
-			this.btnScheduleStop.Location = new System.Drawing.Point(95, 484);
+			this.btnScheduleStop.Location = new System.Drawing.Point(97, 589);
 			this.btnScheduleStop.Name = "btnScheduleStop";
 			this.btnScheduleStop.Size = new System.Drawing.Size(75, 23);
 			this.btnScheduleStop.TabIndex = 8;
@@ -133,7 +134,8 @@
 			// 
 			// btnPrint
 			// 
-			this.btnPrint.Location = new System.Drawing.Point(176, 484);
+			this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnPrint.Location = new System.Drawing.Point(178, 589);
 			this.btnPrint.Name = "btnPrint";
 			this.btnPrint.Size = new System.Drawing.Size(75, 23);
 			this.btnPrint.TabIndex = 9;
@@ -143,11 +145,12 @@
 			// 
 			// txtLog
 			// 
-			this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtLog.Location = new System.Drawing.Point(706, 122);
+			this.txtLog.Location = new System.Drawing.Point(501, 122);
 			this.txtLog.Name = "txtLog";
-			this.txtLog.Size = new System.Drawing.Size(695, 356);
+			this.txtLog.Size = new System.Drawing.Size(1151, 467);
 			this.txtLog.TabIndex = 10;
 			this.txtLog.Text = "";
 			this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
@@ -156,7 +159,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1413, 762);
+			this.ClientSize = new System.Drawing.Size(1664, 624);
 			this.Controls.Add(this.txtLog);
 			this.Controls.Add(this.btnPrint);
 			this.Controls.Add(this.btnScheduleStop);

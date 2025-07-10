@@ -27,6 +27,10 @@ namespace ExcelSheetAutoPrinter
 		PrintDocument printDoc;		// winform PrintDocument
         MstHtmlEditor htmlEditor;	// HtmlEditor (NuGet 패키지 추가 : BaiqiSoft.WinFormsHtmlEditor.NET4)
         HtmlToImage hToi;			// Html을 Image로 Convert (NuGet 패키지 추가 : Select.HtmlToPdf)
+            
+		StdSchedulerFactory factory = null;
+		IScheduler scheduler = null;
+        List<JobInfo> jobList = null;
 
 		public frmMain()
 		{
@@ -230,15 +234,15 @@ namespace ExcelSheetAutoPrinter
 			// 스케줄 시작 로직 (예: Quartz 스케줄러 사용 등)
 			//LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
 
-            StdSchedulerFactory factory = new StdSchedulerFactory();
-			IScheduler scheduler = await factory.GetScheduler();
+            factory = new StdSchedulerFactory();
+			scheduler = await factory.GetScheduler();
 
             // Job 목록 생성
-            List<JobInfo> jobList = new List<JobInfo>();
+			jobList = new List<JobInfo>();
 
             jobList.Add(new JobInfo() { Key = "1", CronExpression = "0/5 * * * * ?", StartTime = DateTime.Now, EndTime = DateTime.Now.AddSeconds(30) });
-            jobList.Add(new JobInfo() { Key = "2", CronExpression = "0/10 * * * * ?", StartTime = DateTime.Now, EndTime = DateTime.Now.AddSeconds(30) });
-            jobList.Add(new JobInfo() { Key = "3", CronExpression = "0/15 * * * * ?", StartTime = DateTime.Now, EndTime = DateTime.Now.AddSeconds(30) });
+            //jobList.Add(new JobInfo() { Key = "2", CronExpression = "0/10 * * * * ?", StartTime = DateTime.Now, EndTime = DateTime.Now.AddSeconds(30) });
+            //jobList.Add(new JobInfo() { Key = "3", CronExpression = "0/15 * * * * ?", StartTime = DateTime.Now, EndTime = DateTime.Now.AddSeconds(30) });
 
             foreach (var job in jobList)
             {
@@ -262,7 +266,7 @@ namespace ExcelSheetAutoPrinter
             await scheduler.Start();
 		}
 
-		private void ScheduleStop()
+		private async void ScheduleStop()
 		{
 			if (this.btnScheduleStart.InvokeRequired)	// UI 스레드가 아닌 경우 Invoke 호출
 			{
@@ -287,8 +291,12 @@ namespace ExcelSheetAutoPrinter
 			}
 			else
 			{
-			this.btnScheduleStop.Enabled = false;   // 스케줄 중지 버튼 비활성화
+				this.btnScheduleStop.Enabled = false;   // 스케줄 중지 버튼 비활성화
 			}
+
+			// Scheduler 시작
+			// https://cwkcw.tistory.com/450
+            await scheduler.Shutdown();		// 스케줄러 종료
 		}
 
 		private void btnPrint_Click(object sender, EventArgs e)
